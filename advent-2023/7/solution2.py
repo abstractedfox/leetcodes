@@ -3,32 +3,53 @@ file = open("input.txt", 'r')
 input = file.readlines()
 
 #cardValueOrder = ["2", "3", "4", "5", "6", "7", "8", "9", "T", "J", "Q", "K", "A"]
-cardValueOrder = "23456789TJQKA"
+cardValueOrder = "J23456789TJQKA"
 
 
 def getHandType(hand):
+    joker = False
     values = {}
     for char in hand:
+        if char == "J":
+            joker = True
         if (char in values) == False:
             values[char] = 0
             for char2 in hand:
                 if char2 == char:
                     values[char] += 1
                     
+    if joker:
+        #largestIndex = values.index(max(valuesArr))
+        largestValue = max(values)
+        
+        secondLargest = min(values)
+        for value in values:
+            if i != largestIndex and valuesArr[i] > valuesArr[secondLargest]:
+                secondLargest = i
+        
+        valuesArr[largestIndex] += valuesArr[secondLargest]
+        del valuesArr[secondLargest]
+        length -= 1
+                    
     length = len(values)
     valuesArr = []
     for value in values:
         valuesArr.append(values[value])
         
+                
+    
         
     if length == 1:
         return 6 #five of a kind
+        
         
     if length == 2:
         if valuesArr[0] == 4 or valuesArr[0] == 1:
             return 5 #four of a kind
         if valuesArr[0] == 2 or valuesArr[0] == 3:
             return 4 #full house
+                    
+
             
     if length == 3:
         if valuesArr[0] == 3 or valuesArr[1] == 3 or valuesArr[2] == 3:
