@@ -89,7 +89,7 @@ for i in range(len(input)):
     success = False
     if i > 0 and input[i - 1] != '\n':
         while goLeft >= 0 and input[goLeft] != '\n':
-            if input[goLeft] in loopNodes:
+            if goLeft in loopNodes:
                 success = True
                 break
             goLeft -= 1
@@ -99,7 +99,7 @@ for i in range(len(input)):
     goRight = i
     if i < len(input) and input[i + 1] != '\n':
         while goRight < len(input) and input[goRight] != '\n':
-            if input[goRight] in loopNodes:
+            if goRight in loopNodes:
                 success = True
                 break
             goRight += 1
@@ -110,6 +110,18 @@ for i in range(len(input)):
     if i > lineLength:
         boundaries = 0
         goUp -= lineLength
-        while goUp >= 0:
+        foundLeft = False
+        foundRight = False
+        while goUp >= 0 and hits < 2:
             #Check for boundaries on both sides of the index going up
+            if goUp in loopNodes:
+                if input[goUp] == "7" or input[goUp] == "F":
+                    hits += 1
+                if input[goUp] == "-":
+                    hits += 2
+            goUp -= lineLength
+        if !success:
+            continue
             
+        
+                
