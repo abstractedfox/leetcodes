@@ -19,29 +19,33 @@ def getHandType(hand):
                     values[char] += 1
                     
     if joker:
-        #largestIndex = values.index(max(valuesArr))
-        largestValue = max(values)
-        
-        secondLargest = min(values)
+        #let's note that it isn't as simple as just equating J to whatever the second largest quantity of cards is; even the example shows "QJJQ2" where it would be preferable for J to become 2
+        #a working approach could simply be to say that for each card that is not J, test an example of that hand where J is replaced with that card, and return whatever is best
+        hands = []
+        handvalues = []
         for value in values:
-            if i != largestIndex and valuesArr[i] > valuesArr[secondLargest]:
-                secondLargest = i
-        
-        valuesArr[largestIndex] += valuesArr[secondLargest]
-        del valuesArr[secondLargest]
-        length -= 1
+            if value == "J":
+                continue
+            split = list(hand)
+            for i in range(len(split)):
+                if split[i] == "J":
+                    split[i] = value
+            hands.append("".join(split))
+        for newhand in hands:
+            handvalues.append(getHandType(newhand))
+        if len(handvalues) == 0:
+            return 6 #full house
+        return max(handvalues)
+            
                     
     length = len(values)
     valuesArr = []
     for value in values:
         valuesArr.append(values[value])
         
-                
-    
         
     if length == 1:
         return 6 #five of a kind
-        
         
     if length == 2:
         if valuesArr[0] == 4 or valuesArr[0] == 1:
@@ -49,8 +53,6 @@ def getHandType(hand):
         if valuesArr[0] == 2 or valuesArr[0] == 3:
             return 4 #full house
                     
-
-            
     if length == 3:
         if valuesArr[0] == 3 or valuesArr[1] == 3 or valuesArr[2] == 3:
             return 3 #three of a kind
@@ -60,7 +62,6 @@ def getHandType(hand):
     if length == 4:
         return 1 #one pair
         
-            
     return 0 #high card
 
 
@@ -79,7 +80,6 @@ def compareHands(hand1, hand2):
             return 1
         if cardValueOrder.find(hand1[i]) < cardValueOrder.find(hand2[i]):
             return 2
-    print("equal hands!")
     return 0
 
 
