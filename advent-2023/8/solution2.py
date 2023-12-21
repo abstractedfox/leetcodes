@@ -6,7 +6,6 @@ directions = input[0]
 maplines = input[2:len(input)]
 steps = 0
 
-directionsIndex = [{}] * len(directions)
 
 def getLineValues(line, leftOrRight):
     if leftOrRight == "name":
@@ -34,27 +33,44 @@ for line in maplines:
     if line[2] == "A":
         concurrentghostlines.append(line)
 
+#i = a position in directions[], [i] = a dictionary of lines in maplines where the value of a given mapline = the number of steps from that line to the next 'Z' index for that line at that position in directions
+indexOfZSteps = [{}] * len(directions)
+
+#i = a position in directions[], [i] = a dictionary where the key = a line in maplines and the value = the destination of the next index of a 'z' from that line for that position in directions[]
+indexOfZPositions = [{}] * len(directions)
+
 #i = a ghost, [i] = the number of steps since it last saw a 'Z'
 ghostStepsSinceLastZ = [0] * len(concurrentghostlines)
 
-#i = a ghost, [i] = the contents of the last 'Z' line it saw
-ghostLastZ = [None] * len(concurrentghostlines)
+indexOfEverything = [{}] * len(directions)
 
 endsInZ = False
+indexcounty = 0
+usedy = 0
+
+directionsLength = len(directions)
+ghostsLength = len(concurrentghostlines)
 while endsInZ != True:
-    for direction in directions:
-        if direction == "\n":
+    for d in range(directionsLength):
+        if directions[d] == "\n":
             break;
         endsInZ = True
-        for i in range(len(concurrentghostlines)):
-            concurrentghostlines[i] = stepThroughMap(concurrentghostlines[i], direction)
-            ghostStepsSinceLastZ[i] += 1
-            if concurrentghostlines[i][2] == "Z":
-                ghostStepsSinecLastZ[i] = 0
-                #note for next time i return to this: this is where we need to zero the steps since last Z count, set ghostlastz, and either check or update the Z value index
+        for i in range(ghostsLength):
+            if concurrentghostlines[i] in indexOfEverything[d]:
+                concurrentghostlines[i] = indexOfEverything[d][concurrentghostlines[i]]
             else:
+                print("indexed!" + str(indexcounty))
+                indexcounty += 1
+                indexOfEverything[d][concurrentghostlines[i]] = stepThroughMap(concurrentghostlines[i], directions[d])
+                concurrentghostlines[i] = indexOfEverything[d][concurrentghostlines[i]]
+            steps += 1
+            #ghostStepsSinceLastZ[i] += 1
+            if concurrentghostlines[i][2] != "Z":
                 endsInZ = False
+        if endsInZ:
+            break
 
+#print("indexed " + str(indexcounty) + " things!")
 print(steps)
 
 
