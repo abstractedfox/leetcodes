@@ -42,11 +42,16 @@ indexOfZPositions = [{}] * len(directions)
 #i = a ghost, [i] = the number of steps since it last saw a 'Z'
 ghostStepsSinceLastZ = [0] * len(concurrentghostlines)
 
-indexOfEverything = [{}] * len(directions)
+#indexOfEverything = [{}] * len(directions)
+indexOfEverything = []
+for count in range(len(directions)):
+    indexOfEverything.append({})
 
 endsInZ = False
 indexcounty = 0
 usedy = 0
+
+indexOfDirections = {"L": {}, "R": {}}
 
 directionsLength = len(directions)
 ghostsLength = len(concurrentghostlines)
@@ -56,20 +61,29 @@ while endsInZ != True:
             break;
         endsInZ = True
         for i in range(ghostsLength):
-            if concurrentghostlines[i] in indexOfEverything[d]:
-                concurrentghostlines[i] = indexOfEverything[d][concurrentghostlines[i]]
+            direction = directions[d]
+            if concurrentghostlines[i] in indexOfDirections[direction]:
+                newIndex = indexOfDirections[direction][concurrentghostlines[i]]
+                concurrentghostlines[i] = newIndex
+                
             else:
                 print("indexed!" + str(indexcounty))
                 indexcounty += 1
-                indexOfEverything[d][concurrentghostlines[i]] = stepThroughMap(concurrentghostlines[i], directions[d])
-                concurrentghostlines[i] = indexOfEverything[d][concurrentghostlines[i]]
+                #indexOfEverything[d][concurrentghostlines[i]] = stepThroughMap(concurrentghostlines[i], directions[d])
+                newEntry = stepThroughMap(concurrentghostlines[i], direction)
+                indexOfDirections[direction][concurrentghostlines[i]] = newEntry
+
+                concurrentghostlines[i] = indexOfDirections[direction][concurrentghostlines[i]]
+
             steps += 1
             #ghostStepsSinceLastZ[i] += 1
+            #print("checking " + concurrentghostlines[i][0:3] + "  " + str(concurrentghostlines[i][2] == "Z"))
             if concurrentghostlines[i][2] != "Z":
                 endsInZ = False
         if endsInZ:
             break
 
+print(concurrentghostlines)
 #print("indexed " + str(indexcounty) + " things!")
 print(steps)
 
