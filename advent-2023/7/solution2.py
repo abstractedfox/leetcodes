@@ -3,17 +3,40 @@ file = open("input.txt", 'r')
 input = file.readlines()
 
 #cardValueOrder = ["2", "3", "4", "5", "6", "7", "8", "9", "T", "J", "Q", "K", "A"]
-cardValueOrder = "23456789TJQKA"
+cardValueOrder = "J23456789TJQKA"
 
 
 def getHandType(hand):
+    joker = False
     values = {}
     for char in hand:
+        if char == "J":
+            joker = True
         if (char in values) == False:
             values[char] = 0
             for char2 in hand:
                 if char2 == char:
                     values[char] += 1
+                    
+    if joker:
+        #let's note that it isn't as simple as just equating J to whatever the second largest quantity of cards is; even the example shows "QJJQ2" where it would be preferable for J to become 2
+        #a working approach could simply be to say that for each card that is not J, test an example of that hand where J is replaced with that card, and return whatever is best
+        hands = []
+        handvalues = []
+        for value in values:
+            if value == "J":
+                continue
+            split = list(hand)
+            for i in range(len(split)):
+                if split[i] == "J":
+                    split[i] = value
+            hands.append("".join(split))
+        for newhand in hands:
+            handvalues.append(getHandType(newhand))
+        if len(handvalues) == 0:
+            return 6 #full house
+        return max(handvalues)
+            
                     
     length = len(values)
     valuesArr = []
@@ -29,7 +52,7 @@ def getHandType(hand):
             return 5 #four of a kind
         if valuesArr[0] == 2 or valuesArr[0] == 3:
             return 4 #full house
-            
+                    
     if length == 3:
         if valuesArr[0] == 3 or valuesArr[1] == 3 or valuesArr[2] == 3:
             return 3 #three of a kind
@@ -39,7 +62,6 @@ def getHandType(hand):
     if length == 4:
         return 1 #one pair
         
-            
     return 0 #high card
 
 
@@ -58,7 +80,6 @@ def compareHands(hand1, hand2):
             return 1
         if cardValueOrder.find(hand1[i]) < cardValueOrder.find(hand2[i]):
             return 2
-    print("equal hands!")
     return 0
 
 
