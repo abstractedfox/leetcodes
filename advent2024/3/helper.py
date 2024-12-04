@@ -1,4 +1,3 @@
-import re
 #get input
 def gi():
     lines = open("input.txt", "r").readlines()
