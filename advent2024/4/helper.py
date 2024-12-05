@@ -14,35 +14,14 @@ def gi():
 def rc(arr, r, c):
     return arr[r][c]
 
-#join a list of characters into a string
-def jn2str(arr):
-    out=""
-    for c in arr:
-        out+=c
-    return out
-
-#inline documentation!!! let's make sure the reverse one works i don't think it does
+#incomplete!!!!!!
 def diag(arr, startrow, startcol, l, r=0):
-    out=[]
+    out=""
     if r==1:
         for i in range(0, l):
-            out.append(arr[startrow+l+i][startcol+l+i])
+            pass
     for i in range(0, l):
-        out.append(arr[startrow+i][startcol+i])
-    if type(arr[0]) == type("a"):
-        out=jn2str(out)
-    return out
-
-def do(collection, func):
-    out=[x for x in collection]
-    for i in rg(out):
-        out[i]=func(out[i])
-    return out
-
-def every(collection, func):
-    for i in collection:
-        if not func(i):
-            return False
+        out+=arr[start+i,startcol+i]
 
 #'get columns' (formatted as rows)
 def gcols(arr, split = None):
