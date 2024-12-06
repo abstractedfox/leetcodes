@@ -79,12 +79,12 @@ def run(a):
             newpos[0]+=d[0]
             newpos[1]+=d[1]
             #print(newpos)
-            if newpos == [23,92]:
-                print("newpos 23 92",a[newpos[0]][newpos[1]])
-            if a[newpos[0]][newpos[1]] != ".":
-                #if a[newpos[0]][newpos[1]] == "!":
+            #if newpos == [23,92]:
+                #print("newpos 23 92",a[newpos[0]][newpos[1]])
+            while a[newpos[0]][newpos[1]] != ".":
+                if a[newpos[0]][newpos[1]] == "!":
                     #print("we hit da block!")
-                    #hitblock=True
+                    hitblock=True
                 d=m[(m.index(d)+1)%4]
                 newpos=[x for x in pos]
                 #newpos[0]=pos[0]
@@ -128,12 +128,14 @@ blah = run(a)
 
 
 ttl=0
-found=found[firststeps:]
+#found=found[firststeps:]
 if True:
     for l in rg(found):
+        '''
         if found[l] in found[0:firststeps]:
             print("skip")
             continue
+        '''
         b=[x for x in a]
         b[found[l][0]]=repl(b[found[l][0]],"!",found[l][1])
         result=run(b)
