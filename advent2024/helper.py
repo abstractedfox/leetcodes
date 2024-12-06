@@ -44,6 +44,9 @@ def every(collection, func):
         if not func(i):
             return False
 
+def repl(string,char,num):
+    return string[0:num]+char+string[num+1:]
+
 #'get columns' (formatted as rows)
 def gcols(arr, split = None):
     out = []
