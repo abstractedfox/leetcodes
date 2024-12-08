@@ -11,7 +11,19 @@ a=["190: 10 19",
 "21037: 9 7 18 13",
 "292: 11 6 16 20"]
 
-#a=gi()
+a=gi()
+if False:
+    a=["10: 5 5",
+    "20: 10 10",
+    "30: 5 5 5",
+    "40: 4 0",
+    "50: 5 5 2",
+    "150: 5 3 0",
+    "150: 10 5 2 50",#450
+    "1250: 25 5 8 200 10 10 10 10 10", #1700
+    "1300: 5 2 5 2 10 10 10 0", #3000,
+    "100: 100" #3100
+    ]
 
 if False:
     a=["25: 5 5",
@@ -45,6 +57,8 @@ print(o)
 
 #leaving off! "i remembered i have a math final on monday" edition
 #combinations of operators are fine, i verified the correct number of unique sets comes out 
+#it's not double-counting rows where more than one combination can be correct
+
 
 o=0
 for r in a:

@@ -2,11 +2,6 @@ from helper import *
 
 #ok some leaving off notes for me because this is well past the point of 4am code
 #we're ending up in a situation where inserting a character into the source array causes unexpected behavior with the security guard walk
-#by inserting an ! into the path, we expect to hit that !. but we're ending up in situations where that doesn't seem to occur
-#so either the character isn't being detected, or there's something wrong with the way we're doing the path
-#it's definitely being inserted in the right place
-#we're using 23,92 as our test point
-#it also seems like we actually are meeting the loop condition without hitting the block..? something really weird is going on, since that obviously does not happen when it runs the unaltered input
 
 a=gi()
 a=["....#.....",
@@ -110,7 +105,7 @@ def run(a):
                 foundmap[found.index(pos)].append(ct)
                 x=foundmap[found.index(pos)]
                 if len(x) > 3:
-                    if x[-1]-x[-2] == x[-2]-x[-3] and x[-2]-x[-3]==x[-3]-x[-4]:
+                    if x[-1]-x[-2] == x[-2]-x[-3]:# and x[-2]-x[-3]==x[-3]-x[-4]:
                         if not hitblock:
                             print("FFFFUUUUUUCCCKKKKKKKK loop confirmed")
                         return True
@@ -136,9 +131,12 @@ if True:
             print("skip")
             continue
         '''
-        b=[x for x in a]
-        b[found[l][0]]=repl(b[found[l][0]],"!",found[l][1])
-        result=run(b)
+        #b=[x for x in a]
+        #b[found[l][0]]=repl(b[found[l][0]],"!",found[l][1])
+        h=a[found[l][0]]
+        a[found[l][0]]=repl(a[found[l][0]],"!",found[l][1])
+        result=run(a)
+        a[found[l][0]]=h
         if result == True:
             ttl+=1
             print(ttl) 
