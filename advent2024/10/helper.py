@@ -1,8 +1,6 @@
 import re
 from collections import Counter
 
-dmap=[[-1,0],[0,1],[1,0],[0,-1]]
-
 #get input
 def gi(file="input.txt"):
     lines = open(file, "r").readlines()
@@ -13,10 +11,6 @@ def gi(file="input.txt"):
         lines=lines[0:-1]
    
     return lines
-
-#coordinates as [x, y]
-def bounds(arr, coords):
-    return coords[0] > -1 and coords[0] < len(arr) and coords[1] > -1 and coords[1] <= len(arr[0])
 
 #rowcol
 def rc(arr, r, c):

@@ -48,8 +48,6 @@ o=0
 
 aptr=lblock
 for c in range(len(blocks)-1, -1, -1):
-    #if aptr<0:
-    #    break
     if blocks[c]!="E":
         l=a[aptr]
         l=len([x for x in blocks if x==blocks[c]])

@@ -16,6 +16,7 @@ a=["....#.....",
 "......#..."]
 a=gi()
 
+
 d=[-1,0]
 
 pos=[0,0]
@@ -68,44 +69,33 @@ def run(a):
     while True:
         try:
             newpos=[x for x in pos]
-            #newpos[0]=pos[0]
-            #newpos[1]=pos[1]
             
             newpos[0]+=d[0]
             newpos[1]+=d[1]
-            #print(newpos)
-            #if newpos == [23,92]:
-                #print("newpos 23 92",a[newpos[0]][newpos[1]])
             while a[newpos[0]][newpos[1]] != ".":
                 if a[newpos[0]][newpos[1]] == "!":
                     #print("we hit da block!")
                     hitblock=True
                 d=m[(m.index(d)+1)%4]
                 newpos=[x for x in pos]
-                #newpos[0]=pos[0]
-                #newpos[1]=pos[1]
 
                 newpos[0]+=d[0]
                 newpos[1]+=d[1]
-            if newpos[0] < 0 or newpos[1]>len(a[0]) or newpos[1] <0:
-            #if newpos[0] < 0:
+            if newpos[0] < 0 or newpos[1]>=len(a[0]) or newpos[1] <0:
                 ct+=1
                 out=True
                 break
             pos=[x for x in newpos]
-            #pos[0]=newpos[0]
-            #pos[1]=newpos[1]
-            #if (pos == [23, 92]):
-                #print("hey, we're on 23, 92!", a[pos[0]][pos[1]] == "!", a[pos[0]][pos[1]])
             if pos not in found:
                 ct+=1
                 found.append([x for x in pos])
                 foundmap.append([ct])
             else:
+                #is it an issue if this gets hit for 2nd+ times hitting a block where it was initially recorded the first time?
                 foundmap[found.index(pos)].append(ct)
                 x=foundmap[found.index(pos)]
-                if len(x) > 3:
-                    if x[-1]-x[-2] == x[-2]-x[-3]:# and x[-2]-x[-3]==x[-3]-x[-4]:
+                if len(x) > 3: #having this set to 3 instead of 2 changes the output!!!!! (2 gets more, lower precision??)
+                    if x[-1]-x[-2] == x[-2]-x[-3] and x[-2]-x[-3]==x[-3]-x[-4]:
                         if not hitblock:
                             print("FFFFUUUUUUCCCKKKKKKKK loop confirmed")
                         return True
@@ -116,14 +106,12 @@ def run(a):
             return False 
     if not hitblock:
         return "FFFFUUUUUUCCCKKKKKKKK"
-    #print("we out",ct==5145, ct)
     return False
 
 blah = run(a)
 
 
 ttl=0
-#found=found[firststeps:]
 if True:
     for l in rg(found):
         '''
@@ -143,7 +131,7 @@ if True:
         if result =="FFFFUUUUUUCCCKKKKKKKK":
             print("something's fucked!")
             print(found[l])
-            print(b[found[l][0]])
+            #print(b[found[l][0]])
     exit()
 
 if False:
