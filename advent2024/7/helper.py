@@ -1,6 +1,5 @@
 import re
-from collections import Counter, deque
-import concurrent.futures
+from collections import Counter
 
 dmap=[[-1,0],[0,1],[1,0],[0,-1]]
 

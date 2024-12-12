@@ -26,6 +26,14 @@ if False:
     ]
 
 if False:
+    a=["30: 1 0 2 5 5",
+    "30: 5 5 0 3",
+    "30: 3 1 0",
+    "30: 30",
+    "30: 2 2 2 2 2 3",
+    ]
+
+if False:
     a=["25: 5 5",
     "1234567: 12 345 67",
     "1128: 3 12 3 4 8"]
@@ -33,6 +41,7 @@ if False:
 a=do(a, lambda a:ordb(a, [toi,jn]))
 o=0
 for r in a:
+    break
     for i in range(1,pow(2,len(r)-1)):
         ttl=r[1]
         well=[i]
@@ -63,6 +72,7 @@ print(o)
 o=0
 for r in a:
     #for i in range(1,pow(3,len(r)-1)):
+    #for i in range(0,pow(3,len(r))+1):
     for i in range(0,pow(3,len(r))):
         ttl=r[1]
         well=[i]
