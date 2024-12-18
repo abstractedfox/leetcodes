@@ -15,9 +15,12 @@ def gi(file="input.txt"):
    
     return lines
 
+def addpos(pos1,pos2):
+    return [pos1[0]+pos2[0], pos1[1]+pos2[1]]
+
 #coordinates as [x, y]
 def bounds(arr, coords):
-    return coords[0] > -1 and coords[0] < len(arr) and coords[1] > -1 and coords[1] <= len(arr[0])
+    return coords[0] > -1 and coords[0] < len(arr) and coords[1] > -1 and coords[1] < len(arr[0])
 
 #rowcol
 def rc(arr, r, c):
@@ -96,8 +99,14 @@ def ordb(string: str, kws:list, s = ord("0"), e=ord("9")):
         out = string.split()
     elif jn in kws:
         joined = ""
+        neg=False
         for c in string:
+            if c == "-":
+                neg=True
             if ord(c) >= s and ord(c) <= e:
+                if neg and signed in kws:
+                    joined+="-"   
+                    neg=False
                 joined += c
             else:
                 joined += " "
@@ -117,6 +126,7 @@ def rg(arr):
 toi = 0 #to int
 spt = 1 #split
 jn = 2 #join
+signed = 3
 class Array:
     #cspt = custom split delineator if needed other than the default one
     def __init__(self, kws =  [], cspt = None, inp = None):
