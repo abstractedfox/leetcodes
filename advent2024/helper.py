@@ -3,6 +3,7 @@ from collections import Counter, deque
 import concurrent.futures
 
 dmap=[[-1,0],[0,1],[1,0],[0,-1]]
+directions={"up": dmap[0], "right": dmap[1], "down": dmap[2], "left": dmap[3]}
 
 #get input
 def gi(file="input.txt"):
@@ -14,6 +15,21 @@ def gi(file="input.txt"):
         lines=lines[0:-1]
    
     return lines
+
+def concatlist(l):
+    out=""
+    for item in l:
+        out+=str(item) + ","
+    return out
+
+#test this!
+def memoize(func, keyfunc = None, lut={}, *args):
+    if keyfunc is None:
+        keyfunc=concatlist
+    key=keyfunc(args)
+    if key not in lut:
+        lut[key]=func(*args)
+        
 
 #coordinates as [x, y]
 def bounds(arr, coords):

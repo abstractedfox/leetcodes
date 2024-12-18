@@ -30,7 +30,7 @@ ttl=0
 
 for l in range(0, len(a)):
     sameline=[]
-    for j in range(0, len(a[l])):
+    for j in range(0, len(a[l]) + 1):
         if a[l][j] == "#":
             sameline.append(j)
             for k in range(l+1, len(a)):
