@@ -5,6 +5,8 @@ grid=grid(a)
 nodes=[] 
 nodemap=[] #[[connected node], steps]
 dijkmap=[]
+start=None
+end=None
 for r in range(1, grid.r):
     for c in range(1, grid.c):
         if grid[r,c]=="#":
@@ -19,6 +21,10 @@ for r in range(1, grid.r):
                 if dirs.l == dirs.r and grid[dirs.l] == ".":
                     continue
         nodes.append(pos)
+        if grid(pos) == "S":
+            start=pos
+        if grid(pos) == "E":
+            end=pos
         nodemap.append([])
         dijkmap.append([])
 for n in nodes:
@@ -29,5 +35,7 @@ for n in nodes:
             i+=1
             pos = addpos(pos, d)
             if pos in nodes:
-                nodemap[pos].append(pos, i)
-            
+                nodemap[pos].append([pos, i])
+
+unvisited=nodes
+
