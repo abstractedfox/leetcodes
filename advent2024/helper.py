@@ -2,7 +2,49 @@ import re
 from collections import Counter, deque
 import concurrent.futures
 
+class direction:
+    def __init__(self, *args):
+        self.dmap=[[-1,0],[0,1],[1,0],[0,-1]]
+        if len(args) == 1:
+            dmap[0] = addpos(args[0], dmap[0])
+            dmap[1] = addpos(args[0], dmap[1])
+            dmap[2] = addpos(args[0], dmap[2])
+            dmap[3] = addpos(args[0], dmap[3])
+        pass
+    
+    def __getitem__(self, key):
+        return self.dmap[key]
+
+    u = self.dmap[0]
+    r = self.dmap[1]
+    d = self.dmap[2]
+    l = self.dmap[3]
+
+#for lists of lists representing a grid
+class grid:
+    arr=[]
+    def __init__(self, arr):
+        self.arr = arr
+
+    #pass a coordinate pair as a list [y, x] to get the character at that position
+    def __getitem__(self, key):
+        if (type(key) == type([]) or type(key) == type((1,1))) and len(key) == 2:
+            return self.arr[key[0]][key[1]]
+        return self.arr[key]
+
+    #row length
+    @property
+    def r(self):
+        return len(self.arr)
+
+    @property
+    def c(self):
+        return len(self.arr[0])
+    
+
+
 dmap=[[-1,0],[0,1],[1,0],[0,-1]]
+dmap=direction()
 directions={"up": dmap[0], "right": dmap[1], "down": dmap[2], "left": dmap[3]}
 
 #get input
